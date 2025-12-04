@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "py3-logger"
-version = "0.0.1"
+version = "0.0.2"
 description = "python3 logger"
 authors = ["mathewgeola <mathewgeola@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-    { include = "logger.py", from = "src" }
+    { include = "logger", from = "src" }
 ]
 
 [tool.poetry.dependencies]
