@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import os
 from logging import handlers
 from typing import Any, Final
