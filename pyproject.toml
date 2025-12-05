@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py3-logger"
-version = "0.0.3"
+version = "0.0.4"
 description = "python3 logger"
 authors = ["mathewgeola <mathewgeola@gmail.com>"]
 license = "MIT"

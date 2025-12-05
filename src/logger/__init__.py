@@ -7,7 +7,7 @@ from typing import Any, Literal, Final, cast
 
 import colorlog
 
-from .rotating_file_handler import RotatingFileHandler
+from . import rotating_file_handler
 
 FRAMEWORK: Final[int] = 55
 SUCCESS: Final[int] = 25
@@ -100,7 +100,7 @@ def _set_file_handler(
         file_level: str | int, file_fmt: str,
         file_path: str, file_mode: str, file_max_bytes: int, file_backup_count: int, file_encoding: str,
 ) -> Logger:
-    file_handler = RotatingFileHandler(
+    file_handler = rotating_file_handler.RotatingFileHandler(
         file_path,
         mode=file_mode, maxBytes=file_max_bytes, backupCount=file_backup_count, encoding=file_encoding
     )
@@ -147,7 +147,7 @@ def get_logger(
     _path = os.path.abspath(sys.argv[0])
     _name = os.path.basename(_path)
     _prefix = os.path.splitext(_name)[0]
-    _file_name = _prefix + ".log"
+    _file_name = _prefix + os.path.extsep + "log"
     _file_dir = os.path.dirname(_path)
     _file_path = os.path.join(_file_dir, _file_name)
 
@@ -192,5 +192,6 @@ def get_logger(
 logger: Logger = get_logger()
 
 __all__ = [
-    "LoggerLevel", "Logger", "RotatingFileHandler", "get_logger", "logger"
+    "LoggerLevel", "Logger", "get_logger", "logger",
+    "rotating_file_handler"
 ]
