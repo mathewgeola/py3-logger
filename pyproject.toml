@@ -1,17 +1,16 @@
-[tool.poetry]
+[project]
 name = "py3-logger"
-version = "0.0.5"
+version = "0.0.6"
 description = "python3 logger"
-authors = ["mathewgeola <mathewgeola@gmail.com>"]
-license = "MIT"
+authors = [
+    {name = "mathewgeola",email = "mathewgeola@gmail.com"}
+]
 readme = "README.md"
-packages = [
-    { include = "logger", from = "src" }
+requires-python = ">=3.12"
+dependencies = [
+    "colorlog (>=6.10.1,<7.0.0)"
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.12"
-colorlog = "^6.10.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

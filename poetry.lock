@@ -34,4 +34,4 @@ development = ["black", "flake8", "mypy", "pytest", "types-colorama"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "0628310ea77403556fb66c51379e73581b04d997d8010db7dfbfa9ec23e57df7"
+content-hash = "8b3c581e0d082d0f2b4708078c005aad53ce39f502bfb8eaac25c54119caf62e"
