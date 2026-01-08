@@ -2,7 +2,8 @@ import py3_logger
 
 
 def test_logger() -> None:
-    logger = py3_logger.get_logger(__name__, to_console=True, to_file=True, file_max_bytes=10, file_backup_count=3)
+    logger = py3_logger.logger.get_logger(__name__, to_console=True, to_file=True, file_max_bytes=10,
+                                          file_backup_count=3)
 
     logger.debug("debug message")
     logger.info("info message")
