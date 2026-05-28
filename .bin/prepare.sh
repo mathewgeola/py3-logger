@@ -1,12 +1,10 @@
 #!/bin/bash
 
-source ../.venv/bin/activate
-
 read -r VERSION < ../VERSION
 
 VERSION=$(echo "$VERSION" | xargs)
 
-poetry version "$VERSION"
+uv version "$VERSION" --project .. --no-sync
 
 BASE=$(git merge-base HEAD origin/main)
 
