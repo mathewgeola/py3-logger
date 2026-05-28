@@ -99,7 +99,7 @@ def _set_file_handler(
 ) -> Logger:
     file_handler = py3_logger.rotating_file_handler.RotatingFileHandler(
         file_path,
-        mode=file_mode, maxBytes=file_max_bytes, backupCount=file_backup_count, encoding=file_encoding
+        mode=file_mode, maxBytes=file_max_bytes, backupCount=file_backup_count, encoding=file_encoding, delay=True
     )
     file_handler.setLevel(file_level)
     file_formatter = logging.Formatter(file_fmt)
@@ -155,7 +155,7 @@ def get_logger(
     _logger.setLevel(level)
 
     if to_console:
-        console_handler_exists = any(isinstance(handler, logging.StreamHandler) for handler in _logger.handlers)
+        console_handler_exists = any(type(handler) is logging.StreamHandler for handler in _logger.handlers)
         if not console_handler_exists:
             _set_console_handler(
                 _logger,
@@ -163,8 +163,8 @@ def get_logger(
                 console_fmt=console_fmt
             )
     else:
-        for handler in _logger.handlers:
-            if isinstance(handler, logging.StreamHandler):
+        for handler in list(_logger.handlers):
+            if type(handler) is logging.StreamHandler:
                 _logger.removeHandler(handler)
 
     if to_file:
@@ -180,7 +180,7 @@ def get_logger(
                 file_fmt=file_fmt
             )
     else:
-        for handler in _logger.handlers:
+        for handler in list(_logger.handlers):
             if isinstance(handler, logging.FileHandler):
                 _logger.removeHandler(handler)
 

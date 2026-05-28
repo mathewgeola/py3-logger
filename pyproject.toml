@@ -1,6 +1,6 @@
 [project]
 name = "py3-logger"
-version = "0.0.8"
+version = "0.0.9"
 description = "python3 logger"
 readme = "README.md"
 authors = [

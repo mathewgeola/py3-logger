@@ -10,6 +10,7 @@ class RotatingFileHandler(handlers.RotatingFileHandler):
 
     def doRollover(self) -> None:
         if self.stream:
+            self.stream.flush()
             self.stream.close()
             self.stream = None  # noqa
 
