@@ -155,8 +155,11 @@ def get_logger(
     _logger.setLevel(level)
 
     if to_console:
-        console_handler_exists = any(type(handler) is logging.StreamHandler for handler in _logger.handlers)
-        if not console_handler_exists:
+        console_handlers = [handler for handler in _logger.handlers if type(handler) is logging.StreamHandler]
+        if console_handlers:
+            for handler in console_handlers:
+                handler.setLevel(console_level)
+        else:
             _set_console_handler(
                 _logger,
                 console_level=console_level,
@@ -166,12 +169,24 @@ def get_logger(
         for handler in list(_logger.handlers):
             if type(handler) is logging.StreamHandler:
                 _logger.removeHandler(handler)
+                handler.close()
 
     if to_file:
-        file_handler_exists = any(isinstance(handler, logging.FileHandler) for handler in _logger.handlers)
+        if file_path is None:
+            file_path = _file_path
+
+        file_handler_exists = False
+        for handler in list(_logger.handlers):
+            if isinstance(handler, logging.FileHandler):
+                if os.path.abspath(handler.baseFilename) == os.path.abspath(file_path):
+                    file_handler_exists = True
+                    handler.setLevel(file_level)
+                    handler.setFormatter(logging.Formatter(file_fmt))
+                else:
+                    _logger.removeHandler(handler)
+                    handler.close()
+
         if not file_handler_exists:
-            if file_path is None:
-                file_path = _file_path
             _set_file_handler(
                 _logger,
                 file_level=file_level,
@@ -183,6 +198,7 @@ def get_logger(
         for handler in list(_logger.handlers):
             if isinstance(handler, logging.FileHandler):
                 _logger.removeHandler(handler)
+                handler.close()
 
     return _logger
 

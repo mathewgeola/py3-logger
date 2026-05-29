@@ -29,8 +29,8 @@ class RotatingFileHandler(handlers.RotatingFileHandler):
             if os.path.exists(self.baseFilename):
                 os.rename(self.baseFilename, dfn)
 
-        self.mode = "w"
-        self.stream = self._open()
+        if not self.delay:
+            self.stream = self._open()
 
     def _format_backup_filename(self, index: int) -> str:
         root, ext = os.path.splitext(self.baseFilename)
